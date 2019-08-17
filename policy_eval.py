@@ -1,6 +1,7 @@
 from gridworld_env import GridWorldEnv
 import numpy as np
-import matplotlib as plt
+import matplotlib
+import matplotlib.pyplot as plt
 
 env = GridWorldEnv()
 
@@ -30,12 +31,30 @@ def policy_eval(policy, env, discount_factor=1.0, epsilon= 0.0001):
         if delta < epsilon:
             break
         
-    return np.array(v_old)
+    return np.reshape(v_old, (4,4))
 
-def plots(v):
-    pass
+def plots(v, title):
+    matplotlib.use('TkAgg')
+
+    ax = plt.gca()
+
+    plt.title(title)
+
+    ax.axes.xaxis.set_ticklabels([])
+    ax.axes.yaxis.set_ticklabels([])
+    ax.axes.xaxis.set_ticks([])
+    ax.axes.yaxis.set_ticks([])
+
+    im = ax.imshow(v)
+
+    cbar = ax.figure.colorbar(im, ax=ax)
+    cbar.ax.set_ylabel('Value', rotation=-90, va='bottom')
+
+    plt.show()
 
 random_policy = np.ones([env.nS, env.nA]) / env.nA
 v = policy_eval(random_policy, env)
+
+plots(v, 'Value map')
 
 print(v)

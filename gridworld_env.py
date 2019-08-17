@@ -10,7 +10,7 @@ class GridWorldEnv():
         self.gridwidth = np.shape(self.world)[0]
         self.gridheight = np.shape(self.world)[1]
 
-        self.P = self.genAllTransitions(self.world, [(3,3), (0,0)])
+        self.P = self.genAllTransitions(self.world, [(0,0), (3,3)])
 
     def transition(self, pos, action):
         if action == 'up':
