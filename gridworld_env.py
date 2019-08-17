@@ -2,12 +2,15 @@ import numpy as np
 
 class GridWorldEnv():
     def __init__(self):
-        self.actions = ('up', 'right', 'left', 'down')
-        self.nA = len(self.actions)-1
+        self.actions = ('up', 'right', 'down', 'left')
+        self.nA = len(self.actions)
         self.world = np.zeros((4,4))
         self.nS = np.size(self.world)
 
-        self.P = self.genAllTransitions(self.world, (3,3))
+        self.gridwidth = np.shape(self.world)[0]
+        self.gridheight = np.shape(self.world)[1]
+
+        self.P = self.genAllTransitions(self.world, [(3,3), (0,0)])
 
     def transition(self, pos, action):
         if action == 'up':
@@ -27,19 +30,21 @@ class GridWorldEnv():
             for c in range(np.shape(world)[1]):
                 transition_state = []
                 for a in self.actions:
-                    current_state = (c,r)
+                    current_state = (r, c)
                     next_state = self.transition(current_state, a)
 
                     transition_prob = 0 if current_state == next_state else 1
                     
-                    if current_state == terminal_state:
+                    if current_state in terminal_state:
                         transition_prob = 0
-                        next_state = terminal_state
+                        next_state = current_state
 
-                    done = next_state == terminal_state
-                    reward = -1 if not next_state == terminal_state else 0
+                    done = current_state in terminal_state
+                    reward = -1 if not current_state in terminal_state else 0
 
                     transition_state.append((transition_prob, next_state, reward, done))
+                    #transition_state.append((transition_prob, current_state, next_state, reward, done, a)) # debug
+
                 transitions.append(transition_state)
         
         return transitions
