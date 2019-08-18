@@ -3,8 +3,6 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 
-env = GridWorldEnv()
-
 def policy_eval(policy, env, discount_factor=1.0, epsilon= 0.0001):
 
     v_old = np.zeros(env.nS)
@@ -20,7 +18,7 @@ def policy_eval(policy, env, discount_factor=1.0, epsilon= 0.0001):
             
             for action in range(env.nA):
                 [prob, next_state, reward, done] = env.P[state][action]
-                v_fn += action_probs[action] * (reward + discount_factor*v_old[next_state[0]*4 + next_state[1]])
+                v_fn += action_probs[action] * (reward + discount_factor*v_old[next_state[0]*env.shape[0] + next_state[1]])
             
             delta = max(delta, abs(v_fn - v_old[state]))
 
@@ -28,10 +26,11 @@ def policy_eval(policy, env, discount_factor=1.0, epsilon= 0.0001):
         
         v_old = v_new
         
+        print(delta)
         if delta < epsilon:
             break
         
-    return np.reshape(v_old, (4,4))
+    return np.array(v_old)
 
 def plots(v, title):
     matplotlib.use('TkAgg')
@@ -52,9 +51,12 @@ def plots(v, title):
 
     plt.show()
 
-random_policy = np.ones([env.nS, env.nA]) / env.nA
-v = policy_eval(random_policy, env)
+if __name__ == '__main__':
+    env = GridWorldEnv()
 
-plots(v, 'Value map')
+    random_policy = np.ones([env.nS, env.nA]) / env.nA
+    v = policy_eval(random_policy, env)
+    v = np.reshape(v, (4,4))
 
-print(v)
+    print(v)
+    plots(v, 'Value map')
