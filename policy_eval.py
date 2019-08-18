@@ -26,13 +26,12 @@ def policy_eval(policy, env, discount_factor=1.0, epsilon= 0.0001):
         
         v_old = v_new
         
-        print(delta)
         if delta < epsilon:
             break
         
     return np.array(v_old)
 
-def plots(v, title):
+def plot_vfn(v, title='Value map'):
     matplotlib.use('TkAgg')
 
     ax = plt.gca()
@@ -59,4 +58,4 @@ if __name__ == '__main__':
     v = np.reshape(v, (4,4))
 
     print(v)
-    plots(v, 'Value map')
+    plot_vfn(v, 'Value map')

@@ -1,5 +1,5 @@
 from gridworld_env import GridWorldEnv
-from policy_eval import policy_eval
+from policy_eval import policy_eval, plot_vfn
 import numpy as np
 
 def policy_improvement(policy, env, policy_eval_fn=policy_eval, discount_factor=1.0):
@@ -33,12 +33,23 @@ def policy_improvement(policy, env, policy_eval_fn=policy_eval, discount_factor=
         if policy_stable:
             return vfn, policy
 
+def plot_policy(p, env):
+
+    p_actions = []
+    for a in np.argmax(better_policy, axis=1):
+        p_actions.append(env.actions[a])
+
+    # Ugly but works
+    print('\n   Actions taken following the final policy:\n   (top-left && bottom-right are terminal states)\n\n   {}   {}   {}   {}'.format(p_actions[0], p_actions[1],p_actions[2],p_actions[3]))
+    print('   {}   {}     {}     {}'.format(p_actions[4], p_actions[5],p_actions[6],p_actions[7]))
+    print('   {}   {}     {}  {}'.format(p_actions[8], p_actions[9],p_actions[10],p_actions[11]))
+    print('   {}   {}  {}  {}\n'.format(p_actions[12], p_actions[13],p_actions[14],p_actions[15]))
+
 
 if __name__ == '__main__':
     env = GridWorldEnv()
     random_policy = np.ones([env.nS, env.nA]) / env.nA
     v, better_policy = policy_improvement(random_policy, env)
 
-    print(better_policy)
-    print("Reshaped Grid Policy (0=up, 1=right, 2=down, 3=left):")
-    print(np.reshape( np.argmax(better_policy, axis=1), env.shape) )
+    plot_policy(better_policy, env)
+    plot_vfn(np.reshape(v, (4,4)), 'Value map after policy iteration')
