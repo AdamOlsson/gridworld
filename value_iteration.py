@@ -1,8 +1,8 @@
+import numpy as np 
 from gridworld_env import GridWorldEnv
-from policy_eval import policy_eval, plot_vfn
-import numpy as np
+from policy_eval import plot_vfn
 
-def policy_improvement(policy, env, policy_eval_fn=policy_eval, discount_factor=1.0):
+def value_iteration(env, discount_factor=1.0, epsilon=0.0001):
 
     def one_step_lookahead(s, vfn):
         actions = np.zeros(env.nA)
@@ -10,28 +10,31 @@ def policy_improvement(policy, env, policy_eval_fn=policy_eval, discount_factor=
         for a in range(env.nA):
             [prob, next_state, reward, done] = env.P[s][a]
             actions[a] = prob*(reward + discount_factor*vfn[next_state[0]*env.shape[0] + next_state[1]])
+
         return actions
 
-    action_values = np.zeros(env.nA)
+    policy = np.zeros([env.nS, env.nA])
+    vfn = np.zeros(env.nS)
 
     while True:
-        vfn = policy_eval_fn(policy, env, discount_factor=1)
-        policy_stable = True
+        delta = 0
 
-        for state in range(env.nS):
-            action_values = one_step_lookahead(state, vfn)
+        for s in range(env.nS):
+            
+            action_values = one_step_lookahead(s, vfn)
+
+            best_action_value = max(action_values)
+
+            delta = max(delta, abs(vfn[s] - best_action_value))
+
+            vfn[s] = best_action_value
 
             best_action = np.argmax(action_values)
 
-            current_action = np.argmax(policy[state])
+            policy[s] = np.eye(env.nA)[best_action]
 
-            if current_action != best_action:
-                policy_stable = False
-
-            policy[state] = np.eye(env.nA)[best_action]
-
-        if policy_stable:
-            return vfn, policy
+        if delta < epsilon:
+            return policy, vfn
 
 def plot_policy(p, env):
 
@@ -46,10 +49,10 @@ def plot_policy(p, env):
     print('   {}   {}  {}  {}\n'.format(p_actions[12], p_actions[13],p_actions[14],p_actions[15]))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     env = GridWorldEnv()
-    random_policy = np.ones([env.nS, env.nA]) / env.nA
-    v, better_policy = policy_improvement(random_policy, env)
 
-    plot_policy(better_policy, env)
-    plot_vfn(np.reshape(v, (4,4)), 'Value map after policy iteration')
+    p, v = value_iteration(env)
+
+    plot_policy(p, env)
+    plot_vfn(np.reshape(v, (4,4)))
