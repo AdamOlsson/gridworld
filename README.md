@@ -7,7 +7,13 @@ ISBN: 9780262039246
 </p>
 
 ## Dynamic Programming
-Dynamic programming refers to a collection of algorithm that given a perfect model of the environment as a Markov Decision Process can compute the optimal policy. In other words, if have full knowledge of hour system, or in this case game, we can compute the best way to play the game. However, this comes with great computational expense because it basically requires the algorithm to iterate over all states of the environment which quickly can become an unfeasable task.
+<p>Dynamic programming refers to a collection of algorithm that given a perfect model of the environment as a Markov Decision Process can compute the optimal policy. In other words, if have full knowledge of hour system, or in this case game, we can compute the best way to play the game. However, this comes with great computational expense because it basically requires the algorithm to iterate over all states of the environment which quickly can become an unfeasable task.
+</p>
 
 ### Policy Evaluation
-To evaluate how well a policy would perform in the environment we compute the state-value function <em>v<sub>π</sub></em> under the policy π.
+<p>To evaluate how well a policy would perform in the environment we compute the state-value function <em>v<sub>π</sub></em> under the policy π. For each state we iterate through, we look at the probability of taking action <em>a</em> in state <em>s</em> under the policy π, the transition function <em>p</em> and the discounted future rewards to calculate the value in the state, <em>V(s).</em>
+</p>
+
+<p align="center">
+V(s) &larr; &sum;<sub>a</sub>π(a|s)&sum;<sub>s', r</sub>p(s', r| s, a)[r + &gamma; V(s')]
+</p>
