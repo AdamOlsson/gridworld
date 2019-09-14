@@ -18,4 +18,6 @@ ISBN: 9780262039246
 <em>V(s) = &sum;<sub>a</sub>π(a|s)&sum;<sub>s', r </sub>p(s', r| s, a)[r + &gamma; V(s')]</em>
 </p>
 
+<div align="center">
 ![Image description](https://github.com/AdamOlsson/rl_policy_iteration/blob/master/img/Heatmap_default.png)
+</div>
