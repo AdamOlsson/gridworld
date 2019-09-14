@@ -11,9 +11,11 @@ ISBN: 9780262039246
 </p>
 
 ### Policy Evaluation
-<p>To evaluate how well a policy would perform in the environment we compute the state-value function <em>v<sub>π</sub></em> under the policy π. For each state we iterate through, we look at the probability of taking action <em>a</em> in state <em>s</em> under the policy π, the transition function <em>p</em> and the discounted future rewards to calculate the value in the state, <em>V(s).</em>
+<p>To evaluate how well a policy would perform in the environment we compute the state-value function <em>v<sub>π</sub></em> under the policy π. For each state we iterate through all states, we look at the probability of taking action <em>a</em> in state <em>s</em> under the policy π, the transition function <em>p</em> and the discounted future rewards to calculate the value in the state, <em>V(s). We continute to do this until the improvement between iterations is below a threshold.</em>
 </p>
 
 <p align="center">
-<em>V(s) &larr; &sum;<sub>a</sub>π(a|s)&sum;<sub>s', r</sub>p(s', r| s, a)[r + &gamma; V(s')]</em>
+<em>V(s) = &sum;<sub>a</sub>π(a|s)&sum;<sub>s', r </sub>p(s', r| s, a)[r + &gamma; V(s')]</em>
 </p>
+
+[[https://github.com/AdamOlsson/rl_policy_iteration/blob/master/img/Heatmap_default.png | alt=octocat]]
