@@ -25,11 +25,21 @@ ISBN: 9780262039246
 </p>
 
 ### Policy Improvement
-Once the value function has been determined we can start improving our policy. Suppose that we have calculated our value function under a policy π and for some state <em>s</em> we would like to know if we should take a different action to yield a better value function. Since we have complete knowledge of our system, due to this being a DP problem, we can simply try to take another action in the state. Then we simply greedily select the action that gave the highest score and update our policy.
+<p>Once the value function has been determined we can start improving our policy. Suppose that we have calculated our value function under a policy π and for some state <em>s</em> we would like to know if we should take a different action to yield a better value function. Since we have complete knowledge of our system, due to this being a DP problem, we can simply try to take another action in the state. Then we simply greedily select the action that gave the highest score and update our policy.</p>
 
-<p align="center"><em>π(s)</em> argmax <sub><em>a</em></sub ><em>&sum;<sub>s', r </sub>p(s', r| s, a)[r + &gamma; V(s')]</em></p>
+<p align="center"><em>π(s) = </em> argmax<sub><em>a</em></sub> <em>&sum;<sub>s', r </sub>p(s', r| s, a)[r + &gamma; V(s')]</em></p>
 
 ### Policy Iteration
-Now we have a method of evaluate our policy as well as updating our existing policy to make it better. Merging this two methods is called Policy Iteration. The idea is that we first evaluate our policy and then try to updating it in an iterative process to yield an optimal policy.
+<p>Now we have a method of evaluate our policy as well as updating our existing policy to make it better. Merging this two methods is called Policy Iteration. The idea is that we first evaluate our policy and then try to updating it in an iterative process to yield an optimal policy.</p>
+
+### Value Iteration
+<p>A drawback of Policy Iteration is that the current policy needs to be evaluated during every iteration. The evaluation of a policy can be a computational heavy task. In Value Iteration we shorten the computation of the Policy Evaluation by only allowing one single iteration through all states. The reasoning behind this is that during Policy Evaluation, that we do not need to wait for it completely because after the first few iteration very little change to the value function is seen. The relation between the states is defined quite early, i.e its quickly realised that some states are better than others, just not how much better. Therefor we can change the update of our state-value:</p> 
+
+<p align="center">
+  <em>V(s) = </em> max<sub><em>a</em></sub> <em>&sum;<sub>s', r </sub>p(s', r| s, a)[r + &gamma; V(s')]</em>
+</p>
+
+The image below shows the result of the same Gridworld as in Policy Evaluation. Cutting the Policy Evaluation short can clearly be seen from the scale of the values for each state.
+
 
 
