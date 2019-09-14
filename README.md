@@ -30,7 +30,11 @@ ISBN: 9780262039246
 <p align="center"><em>π(s) = </em> argmax<sub><em>a</em></sub> <em>&sum;<sub>s', r </sub>p(s', r| s, a)[r + &gamma; V(s')]</em></p>
 
 ### Policy Iteration
-<p>Now we have a method of evaluate our policy as well as updating our existing policy to make it better. Merging this two methods is called Policy Iteration. The idea is that we first evaluate our policy and then try to updating it in an iterative process to yield an optimal policy.</p>
+<p>Now we have a method of evaluate our policy as well as updating our existing policy to make it better. Merging this two methods is called Policy Iteration. The idea is that we first evaluate our policy and then try to updating it in an iterative process to yield an optimal policy. The image below shows the result of the same Gridworld as in Policy Evaluation.</p>
+
+<p align="center">
+<img align="center" src=https://github.com/AdamOlsson/rl_policy_iteration/blob/master/img/Heatmap_policy_iteration.png>
+</p>
 
 ### Value Iteration
 <p>A drawback of Policy Iteration is that the current policy needs to be evaluated during every iteration. The evaluation of a policy can be a computational heavy task. In Value Iteration we shorten the computation of the Policy Evaluation by only allowing one single iteration through all states. The reasoning behind this is that during Policy Evaluation, that we do not need to wait for it completely because after the first few iteration very little change to the value function is seen. The relation between the states is defined quite early, i.e its quickly realised that some states are better than others, just not how much better. Therefor we can change the update of our state-value:</p> 
@@ -39,7 +43,7 @@ ISBN: 9780262039246
   <em>V(s) = </em> max<sub><em>a</em></sub> <em>&sum;<sub>s', r </sub>p(s', r| s, a)[r + &gamma; V(s')]</em>
 </p>
 
-The image below shows the result of the same Gridworld as in Policy Evaluation. Cutting the Policy Evaluation short can clearly be seen from the scale of the values for each state.
+The resulting state-value function is the same as in Policy Iteration. Below you see the final policy using value iteration.
 
 
 
