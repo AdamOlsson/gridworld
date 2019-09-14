@@ -15,5 +15,5 @@ ISBN: 9780262039246
 </p>
 
 <p align="center">
-V(s) &larr; &sum;<sub>a</sub>π(a|s)&sum;<sub>s', r</sub>p(s', r| s, a)[r + &gamma; V(s')]
+<em>V(s) &larr; &sum;<sub>a</sub>π(a|s)&sum;<sub>s', r</sub>p(s', r| s, a)[r + &gamma; V(s')]</em>
 </p>
