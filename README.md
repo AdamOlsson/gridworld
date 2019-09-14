@@ -45,5 +45,6 @@ ISBN: 9780262039246
 
 The resulting state-value function is the same as in Policy Iteration. Below you see the final policy using value iteration.
 
-
-
+<p align="center">
+<img align="center" src=https://github.com/AdamOlsson/rl_policy_iteration/blob/master/img/actions_value_iteration.png>
+</p>
